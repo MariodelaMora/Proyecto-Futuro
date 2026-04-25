@@ -1,0 +1,65 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <div class="max-w-md w-full mx-4">
+        <div class="bg-white p-8 md:p-12 rounded-3xl shadow-2xl text-center relative overflow-hidden border-t-8 border-pink-400">
+
+            <div class="text-6xl mb-6 animate-bounce">
+                💝
+            </div>
+
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">
+                Después de todo este tiempo...
+            </h1>
+
+            <p class="text-lg text-gray-600 mb-10 leading-relaxed">
+                Me lo he pasado increíble en cada uno de estos momentos. Por eso quería preguntarte...
+                <br>
+                <span class="font-bold text-pink-500 text-xl">¿Quieres ser mi novia?</span>
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <form action="/respuesta" method="POST" class="w-full sm:w-auto">
+                    <button type="submit" name="decision" value="SI"
+                            class="w-full sm:w-auto bg-gradient-to-r from-pink-500 to-rose-400 hover:from-pink-600 hover:to-rose-500 text-white font-black py-4 px-12 rounded-full text-2xl shadow-lg transform hover:scale-110 transition-all active:scale-95">
+                        ¡SÍ! 😍
+                    </button>
+                </form>
+
+                <button id="btn-no"
+                        class="w-full sm:w-auto bg-gray-200 text-gray-500 font-bold py-3 px-8 rounded-full text-sm transition-all duration-75 ease-out border border-gray-300">
+                    No... 😢
+                </button>
+            </div>
+
+            <p class="mt-8 text-xs text-gray-400 italic">
+                * Warning: El botón de "No" está bugeado, mejor no lo intentes.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const btnNo = document.getElementById('btn-no');
+
+        const moverBoton = () => {
+            // Calculamos posiciones aleatorias dentro del viewport
+            // Restamos un margen para que no se salga de la pantalla
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
+            btnNo.style.zIndex = '9999';
+        };
+
+        // Para PC: Se mueve cuando el ratón se acerca
+        btnNo.addEventListener('mouseenter', moverBoton);
+
+        // Para Móvil: Se mueve cuando intentas tocarlo
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Evita que el click se registre
+            moverBoton();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<div class="max-w-lg w-full mx-4 text-center">
+    <div class="bg-white p-10 rounded-3xl shadow-2xl border-b-8 border-green-500 transform transition-all">
+
+        <div class="inline-flex items-center justify-center w-20 h-20 bg-green-100 text-green-500 rounded-full mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+            </svg>
+        </div>
+
+        <h1 class="text-4xl font-black text-gray-800 mb-4 uppercase tracking-tighter">
+            ¡Deploy Exitoso!
+        </h1>
+
+        <div class="space-y-4 mb-8">
+            <p class="text-xl text-gray-700">
+                El sistema ha procesado la respuesta correctamente.
+            </p>
+            <div class="bg-green-50 p-4 rounded-xl border border-green-200">
+                <p class="text-green-800 font-mono text-sm">
+                    > status: OFICIALMENTE NOVIOS <br>
+                    > partner_1: Mario <br>
+                    > partner_2: [Su Nombre] <br>
+                    > connection: STABLE
+                </p>
+            </div>
+        </div>
+
+        <p class="text-3xl">❤️🥰✨</p>
+
+        <div class="mt-8 pt-6 border-t border-gray-100 text-gray-400 text-xs">
+            ID de transacción: {{ "now"|date("Ymd-His") }}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Lanzamos confeti nada más cargar la página
+    var duration = 5 * 1000;
+    var animationEnd = Date.now() + duration;
+    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    var interval = setInterval(function() {
+      var timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      var particleCount = 50 * (timeLeft / duration);
+      // desde los lados
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+    }, 250);
+</script>
+{% endblock %}
