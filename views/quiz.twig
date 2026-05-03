@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Para mi persona favorita ❤️</title>
+    <title>¿Cuánto me conoces? ❤️</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
@@ -11,34 +11,33 @@
 
 <div id="quiz-container" class="container">
 
-    <!-- 1. Preguntas -->
+    <!-- 1. Pantalla de Preguntas -->
     <div id="question-card" class="card text-center">
-        <h3 id="question-text" class="fw-bold mb-4" style="color: #590d22;"></h3>
-        <div class="image-wrapper mb-4">
-            <img id="question-image" src="" class="img-fluid">
-        </div>
-        <div id="options-container" class="d-grid gap-3"></div>
+        <div id="timer" class="timer-bar"></div>
+        <h4 id="question-text" class="fw-bold my-4" style="color: #590d22;"></h4>
+        <!-- La foto aquí solo aparece si quieres, pero la sorpresa real va en el feedback -->
+        <div id="options-container" class="d-grid gap-2"></div>
     </div>
 
-    <!-- 2. Feedback -->
+    <!-- 2. Pantalla de Acierto (Aquí aparece la FOTO + TEXTO) -->
     <div id="feedback-screen" class="card text-center d-none">
         <div class="image-wrapper mb-3">
-            <img id="feedback-image" src="" class="img-fluid">
+            <img id="feedback-image" src="" class="img-fluid shadow">
         </div>
         <p id="feedback-message" class="italic-love"></p>
-        <button onclick="nextQuestion()" class="btn btn-heart">Siguiente recuerdo ❤️</button>
+        <button onclick="nextQuestion()" class="btn btn-danger rounded-pill px-4">Siguiente recuerdo ❤️</button>
     </div>
 
-    <!-- 3. Final -->
+    <!-- 3. Gran Final -->
     <div id="final-screen" class="card text-center d-none">
         <div class="image-wrapper mb-4">
             <img src="/images/sanvi-loca.jpg" class="img-fluid">
         </div>
-        <h2 class="fw-bold" style="color: #ff4d6d;">Entonces...</h2>
+        <h2 class="fw-bold" style="color: #ff4d6d;">¡Lo has clavado!</h2>
         <p class="lead mb-4">¿Te ha convencido ya este pavo para ser su novia?</p>
         <div class="d-flex justify-content-center gap-3">
-            <button id="btn-si" class="btn btn-success btn-lg px-4 fw-bold">SÍ! 🌹</button>
-            <button id="btn-no" class="btn btn-light btn-lg px-4">No</button>
+            <button id="btn-si" class="btn btn-success btn-lg px-4 fw-bold shadow">¡SÍ! 🌹</button>
+            <button id="btn-no" class="btn btn-light btn-lg px-4 shadow">No</button>
         </div>
     </div>
 
