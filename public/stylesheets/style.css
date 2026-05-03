@@ -1,27 +1,32 @@
 .container { max-width: 600px; margin: auto; }
-.img-fluid { max-height: 350px; object-fit: cover; width: 100%; border-radius: 15px; }
-.btn-heart { background-color: #ff4d6d; color: white; border-radius: 20px; transition: 0.3s; border: none; padding: 10px 20px; }
-.btn-heart:hover { background-color: #ff758f; transform: scale(1.05); }
+.img-fluid { max-height: 400px; object-fit: cover; width: 100%; border-radius: 15px; }
+
+/* ESTO ES LO QUE ARREGLA TU ERROR: Esconde las pantallas que no tocan */
+.d-none {
+  display: none !important;
+}
+
+.btn-heart {
+  background-color: #ff4d6d;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  padding: 12px 24px;
+  font-weight: bold;
+}
 
 .italic-love {
   font-family: 'Georgia', serif;
   font-style: italic;
   color: #c9184a;
-  margin-top: 20px;
+  padding: 15px;
 }
 
-#btn-no { transition: all 0.2s ease; z-index: 999; }
+#btn-no { transition: all 0.2s ease; z-index: 1000; }
 
-#question-card, #feedback-screen, #final-screen {
+.card {
   border: none;
   border-radius: 25px;
   background: #fff0f3;
-  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
-
-/* ESTO ES VITAL: Fuerza a que se escondan las pantallas */
-.d-none {
-  display: none !important;
-}
-
-.card { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }

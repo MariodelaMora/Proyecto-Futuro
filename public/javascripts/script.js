@@ -11,7 +11,6 @@ const quizData = [
 
 let currentStep = 0;
 
-// Esta función asegura que solo se vea UNA pantalla a la vez
 function showScreen(screenId) {
     document.getElementById('question-card').classList.add('d-none');
     document.getElementById('feedback-screen').classList.add('d-none');
@@ -24,6 +23,7 @@ function loadQuestion() {
     showScreen('question-card');
     const data = quizData[currentStep];
     document.getElementById('question-text').innerText = data.q;
+    // IMPORTANTE: Asegúrate de que las fotos están en public/images/
     document.getElementById('question-image').src = `/images/${data.img}`;
 
     const container = document.getElementById('options-container');
@@ -44,7 +44,7 @@ function checkAnswer(selected, correct, message, img) {
         document.getElementById('feedback-message').innerText = message;
         document.getElementById('feedback-image').src = `/images/${img}`;
     } else {
-        alert("¡Error de sistema! Revisa tus recuerdos... (Pista: ¡Sabes la respuesta! 😂)");
+        alert("¡Error de sistema! Revisa tus recuerdos... 😂");
     }
 }
 
@@ -57,19 +57,24 @@ function nextQuestion() {
     }
 }
 
-// Lógica del botón No
+// Lógica del botón que huye
 const btnNo = document.getElementById('btn-no');
-btnNo.addEventListener('mouseover', () => {
-    const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
-    const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
-    btnNo.style.position = 'fixed';
-    btnNo.style.left = x + 'px';
-    btnNo.style.top = y + 'px';
-});
+if(btnNo) {
+    btnNo.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btnNo.offsetHeight);
+        btnNo.style.position = 'fixed';
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+    });
+}
 
-document.getElementById('btn-si').onclick = () => {
-    alert("¡SABÍA QUE DIRÍAS QUE SÍ! ❤️ Eres lo mejor que me ha pasado.");
-};
+const btnSi = document.getElementById('btn-si');
+if(btnSi) {
+    btnSi.onclick = () => {
+        alert("¡SABÍA QUE DIRÍAS QUE SÍ! ❤️");
+    };
+}
 
-// Arrancamos el quiz
-loadQuestion();
+// Iniciar al cargar
+window.onload = loadQuestion;

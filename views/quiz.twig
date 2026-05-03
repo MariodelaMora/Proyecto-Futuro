@@ -1,23 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz para Ella</title>
+    <!-- Enlazamos el CSS usando la ruta que Express entiende para la carpeta public -->
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <!-- Bootstrap (opcional, pero ayuda al diseño) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
 <div id="quiz-container" class="container mt-5 text-center">
-    <!-- Pantalla de Preguntas -->
+    <!-- 1. Pantalla de Preguntas -->
     <div id="question-card" class="card shadow-lg p-4">
         <h2 id="question-text" class="mb-4"></h2>
         <div class="image-wrapper mb-4">
             <img id="question-image" src="" alt="Recuerdo" class="img-fluid rounded shadow">
         </div>
-        <div id="options-container" class="d-grid gap-3">
-            <!-- Los botones se generan con JS -->
-        </div>
+        <div id="options-container" class="d-grid gap-3"></div>
     </div>
 
-    <!-- Pantalla de Mensaje Intermedio -->
+    <!-- 2. Pantalla de Mensaje (Te quiero porque...) -->
     <div id="feedback-screen" class="card shadow-lg p-4 d-none">
         <img id="feedback-image" src="" class="img-fluid rounded mb-3">
         <h3 id="feedback-message" class="italic-love"></h3>
         <button onclick="nextQuestion()" class="btn btn-heart mt-3">Siguiente recuerdo ❤️</button>
     </div>
 
-    <!-- Pantalla Final -->
+    <!-- 3. Pantalla Final -->
     <div id="final-screen" class="card shadow-lg p-5 d-none">
         <img src="/images/sanvi-loca.jpg" class="img-fluid rounded mb-4">
         <h1 class="display-4 text-danger">Entonces...</h1>
@@ -29,4 +38,8 @@
     </div>
 </div>
 
-<script src="/public/javascripts/script.js"></script>
+<!-- RUTA CORRECTA según tu captura: public/javascripts/script.js -->
+<script src="/javascripts/script.js"></script>
+
+</body>
+</html>
