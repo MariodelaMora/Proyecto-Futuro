@@ -1,42 +1,39 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="relative w-full min-h-screen flex items-center justify-center overflow-hidden">
-        <!-- Video de fondo (Mimos o Paseo de manos) -->
-        <video autoplay muted loop playsinline class="absolute w-full h-full object-cover opacity-40">
+    <div class="relative min-h-[90vh] flex items-center justify-center p-6">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 z-0">
             <source src="/videos/mimos.mp4" type="video/mp4">
         </video>
 
-        <div class="relative z-10 bg-white/20 backdrop-blur-2xl p-10 md:p-16 rounded-[3rem] border border-white/40 shadow-2xl text-center max-w-xl mx-4">
-            <h2 class="text-sm uppercase tracking-[0.3em] text-indigo-900 font-black mb-4">28 de Junio</h2>
-            <h1 class="text-4xl md:text-5xl font-serif font-bold text-gray-900 mb-10 leading-tight">
-                ¿Quieres ser mi novia oficialmente?
-            </h1>
+        <div class="relative z-10 w-full max-w-sm text-center animate__animated animate__fadeInUp">
+            <div class="bg-white/10 backdrop-blur-md p-10 rounded-[3rem] border border-white/20 shadow-2xl">
+                <h2 class="text-indigo-900 font-black tracking-[0.2em] text-xs mb-6 uppercase">Un año después...</h2>
+                <h1 class="text-4xl font-bold text-gray-900 mb-12 leading-tight">¿Quieres ser mi novia oficialmente?</h1>
 
-            <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                <form action="/respuesta" method="POST">
-                    <input type="hidden" name="decision" value="si">
-                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white text-xl font-bold py-5 px-14 rounded-full shadow-xl transform hover:scale-110 transition-all">
-                        SÍ, QUIERO 😍
+                <div class="space-y-6">
+                    <form action="/respuesta" method="POST">
+                        <input type="hidden" name="decision" value="si">
+                        <button class="w-full bg-green-500 text-white font-black py-6 rounded-3xl shadow-xl text-xl animate__animated animate__heartBeat animate__infinite">
+                            SÍ, QUIERO ❤️
+                        </button>
+                    </form>
+
+                    <button id="no-btn" class="text-gray-500 font-bold text-sm opacity-50 py-2">
+                        No (Error de sistema)
                     </button>
-                </form>
-
-                <!-- El botón que se escapa (Opcional, si quieres vacilarla) -->
-                <button id="no-btn" class="bg-gray-400 text-white py-3 px-8 rounded-full font-bold opacity-70 transition-all">
-                    No
-                </button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        const noBtn = document.getElementById('no-btn');
-        noBtn.addEventListener('mouseover', () => {
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = x + 'px';
-            noBtn.style.top = y + 'px';
+        const no = document.getElementById('no-btn');
+        no.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            no.style.position = 'absolute';
+            no.style.left = Math.random() * 80 + '%';
+            no.style.top = Math.random() * 80 + '%';
         });
     </script>
 {% endblock %}

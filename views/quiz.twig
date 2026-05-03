@@ -1,113 +1,74 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-<div id="quiz-app" class="max-w-2xl w-full mx-4 relative">
-    <!-- Contenedor Principal -->
-    <div class="bg-white/30 backdrop-blur-xl p-8 md:p-12 rounded-[2rem] shadow-2xl border border-white/40 relative z-10">
+    <div id="quiz-app" class="flex flex-col items-center justify-start min-h-[95vh] pt-10 px-4">
+        <div class="w-full max-w-sm bg-white/40 backdrop-blur-2xl rounded-[3rem] p-8 shadow-2xl border border-white/50 relative overflow-hidden animate__animated animate__zoomIn">
 
-        <!-- Barra de Progreso -->
-        <div class="w-full bg-black/10 h-1.5 mb-8 rounded-full">
-            <div id="progress" class="bg-gradient-to-r from-pink-500 to-violet-500 h-full transition-all duration-700 w-0"></div>
-        </div>
-
-        <!-- Área de Preguntas -->
-        <div id="question-container">
-            <span id="step-text" class="text-xs uppercase tracking-widest text-indigo-800 font-bold">Iniciando sistema...</span>
-            <h2 id="question-title" class="text-2xl md:text-3xl font-semibold text-gray-900 mt-2 mb-8 leading-tight"></h2>
-
-            <div id="options" class="grid gap-4">
-                <!-- Botones generados por JS -->
+            <!-- Barra de progreso superior -->
+            <div class="flex justify-between items-center mb-6">
+                <div id="progress-dots" class="flex gap-2"></div>
+                <span id="perc" class="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">0%</span>
             </div>
-        </div>
 
-        <!-- MODAL DE RECOMPENSA (Acierto) -->
-        <div id="reward-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div class="bg-white/90 p-6 rounded-3xl max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-300" id="modal-content">
-                <img id="reward-img" src="" class="w-full h-64 object-cover rounded-2xl mb-4 shadow-lg">
-                <p id="reward-text" class="text-gray-800 italic text-center mb-6 px-2 leading-relaxed"></p>
-                <button onclick="nextStep()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl transition-colors">
-                    Continuar el viaje ✨
+            <div id="quiz-step" class="transition-all duration-500">
+                <h2 id="q-text" class="text-2xl font-bold text-gray-900 mb-8 leading-tight"></h2>
+                <div id="options" class="space-y-4"></div>
+            </div>
+
+            <!-- Pantalla de Acierto (Overlay) -->
+            <div id="reward-overlay" class="hidden absolute inset-0 bg-white/95 z-20 flex flex-col p-6 animate__animated animate__fadeIn">
+                <img id="r-img" src="" class="w-full h-64 object-cover rounded-[2rem] shadow-xl mb-6">
+                <div class="flex-1 overflow-y-auto italic text-gray-700 text-center font-medium px-2 leading-relaxed" id="r-msg"></div>
+                <button onclick="nextStep()" class="mt-6 w-full bg-gray-900 text-white py-5 rounded-2xl font-bold active:scale-95 transition-transform">
+                    Siguiente →
                 </button>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const quizData = [
-        {
-            q: "¿Cuándo es el cumpleaños de Mario?",
-            options: ["26 de Marzo", "27 de Marzo", "27 de Abril", "17 de Marzo"],
-            correct: 1,
-            img: "/images/cumple-tarta.jpg",
-            msg: "Me hiciste sentir súper especial en mi día; es algo que no había sentido nunca y nunca se me va a olvidar."
-        },
-        {
-            q: "¿Cuál fue nuestro primer viaje de 'locura' donde fuimos los más felices?",
-            options: ["Oviedo", "Gijón", "San Vicente de la Barquera", "Santander"],
-            correct: 2,
-            img: "/images/sanvi-loca.jpg",
-            msg: "Ese viaje me demostró que contigo hasta el plan más improvisado es perfecto."
-        },
-        {
-            q: "¿Qué tiene de especial la fecha de hoy, 28 de Junio?",
-            options: ["Es un domingo de verano", "Hace 1 año que nos conocimos", "Es el día que te diré algo importante", "La B y la C son correctas"],
-            correct: 3,
-            img: "/images/fiesta.jpg",
-            msg: "Quién nos diría ese día, que metiste en la resi a un pavo que te caía mal y que dijiste que no dejarías ni dormir contigo, que estarías así ahora... jaja. Y quién me lo diría a mí también, que en esa misma situación yo, un chico que nunca tuvo novia ni sintió nada real por nadie, estaría así contigo. Por eso, quiero que esto deje de ser un juego..."
+    <script>
+        const data = [
+            { q: "¿Cuándo es el cumple de Mario?", opts: ["26 Marzo", "27 Marzo", "27 Abril", "17 Marzo"], ans: 1, img: "/images/cumple-tarta.jpg", msg: "Me hiciste sentir súper especial en mi día; es algo que nunca voy a olvidar. ❤️" },
+            { q: "¿Nuestro primer viaje de 'locura'?", opts: ["Oviedo", "Gijón", "San Vicente", "Santander"], ans: 2, img: "/images/sanvi-loca.jpg", msg: "Ese viaje me enseñó que contigo hasta perderse es un planazo." },
+            { q: "¿Qué tiene de especial hoy, 28 de Junio?", opts: ["Un día normal", "Hace 1 año que nos conocimos", "Mario tiene una pregunta", "B y C son correctas"], ans: 3, img: "/images/fiesta.jpg", msg: "Quién nos diría que ese pavo que te caía mal en la resi hoy no puede vivir sin ti... Por eso, esto tiene que dejar de ser un juego." }
+        ];
+
+        let cur = 0;
+
+        function render() {
+            const s = data[cur];
+            document.getElementById('q-text').innerText = s.q;
+            document.getElementById('perc').innerText = Math.round((cur/data.length)*100) + "%";
+
+            const opts = document.getElementById('options');
+            opts.innerHTML = '';
+            s.opts.forEach((o, i) => {
+                const b = document.createElement('button');
+                b.className = "w-full text-left p-5 rounded-2xl bg-white/60 border border-white shadow-sm font-semibold text-gray-800 active:bg-indigo-50 transition-all animate__animated animate__fadeInUp";
+                b.style.animationDelay = (i * 0.1) + "s";
+                b.innerText = o;
+                b.onclick = () => i === s.ans ? showR() : b.classList.add('animate__shakeX', 'bg-red-50');
+                opts.appendChild(b);
+            });
         }
-    ];
 
-    let current = 0;
-
-    function renderQuestion() {
-        const data = quizData[current];
-        document.getElementById('step-text').innerText = `Recuerdo ${current + 1} de ${quizData.length}`;
-        document.getElementById('question-title').innerText = data.q;
-        document.getElementById('progress').style.width = `${(current / quizData.length) * 100}%`;
-
-        const optsContainer = document.getElementById('options');
-        optsContainer.innerHTML = '';
-
-        data.options.forEach((opt, i) => {
-            const btn = document.createElement('button');
-            btn.className = "text-left p-4 rounded-2xl border border-white/50 bg-white/20 hover:bg-white/50 transition-all text-gray-800 font-medium shadow-sm hover:shadow-md";
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(i);
-            optsContainer.appendChild(btn);
-        });
-    }
-
-    function checkAnswer(idx) {
-        if (idx === quizData[current].correct) {
-            showReward();
-        } else {
-            alert("¡Error de sistema! Revisa tus recuerdos... (Pista: Piénsalo bien ❤️)");
+        function showR() {
+            if(cur === data.length - 1) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('r-img').src = data[cur].img;
+            document.getElementById('r-msg').innerText = `"${data[cur].msg}"`;
+            document.getElementById('reward-overlay').classList.remove('hidden');
         }
-    }
 
-    function showReward() {
-        const modal = document.getElementById('reward-modal');
-        const content = document.getElementById('modal-content');
-        document.getElementById('reward-img').src = quizData[current].img;
-        document.getElementById('reward-text').innerText = `"${quizData[current].msg}"`;
-
-        modal.classList.remove('hidden');
-        setTimeout(() => content.classList.remove('scale-95'), 10);
-    }
-
-    function nextStep() {
-        current++;
-        document.getElementById('reward-modal').classList.add('hidden');
-
-        if (current < quizData.length) {
-            renderQuestion();
-        } else {
-            // Transición final a la página de la pregunta
-            window.location.href = "/la-pregunta";
+        function nextStep() {
+            cur++;
+            if(cur < data.length) {
+                document.getElementById('reward-overlay').classList.add('hidden');
+                render();
+            } else {
+                window.location.href = "/la-pregunta";
+            }
         }
-    }
 
-    renderQuestion();
-</script>
+        render();
+    </script>
 {% endblock %}
