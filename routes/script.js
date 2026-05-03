@@ -11,7 +11,17 @@ const quizData = [
 
 let currentStep = 0;
 
+// Esta función asegura que solo se vea UNA pantalla a la vez
+function showScreen(screenId) {
+    document.getElementById('question-card').classList.add('d-none');
+    document.getElementById('feedback-screen').classList.add('d-none');
+    document.getElementById('final-screen').classList.add('d-none');
+
+    document.getElementById(screenId).classList.remove('d-none');
+}
+
 function loadQuestion() {
+    showScreen('question-card');
     const data = quizData[currentStep];
     document.getElementById('question-text').innerText = data.q;
     document.getElementById('question-image').src = `/images/${data.img}`;
@@ -30,8 +40,7 @@ function loadQuestion() {
 
 function checkAnswer(selected, correct, message, img) {
     if (selected === correct) {
-        document.getElementById('question-card').classList.add('d-none');
-        document.getElementById('feedback-screen').classList.remove('d-none');
+        showScreen('feedback-screen');
         document.getElementById('feedback-message').innerText = message;
         document.getElementById('feedback-image').src = `/images/${img}`;
     } else {
@@ -42,20 +51,13 @@ function checkAnswer(selected, correct, message, img) {
 function nextQuestion() {
     currentStep++;
     if (currentStep < quizData.length) {
-        document.getElementById('feedback-screen').classList.add('d-none');
-        document.getElementById('question-card').classList.remove('d-none');
         loadQuestion();
     } else {
-        showFinalScreen();
+        showScreen('final-screen');
     }
 }
 
-function showFinalScreen() {
-    document.getElementById('feedback-screen').classList.add('d-none');
-    document.getElementById('final-screen').classList.remove('d-none');
-}
-
-// Lógica del botón que huye
+// Lógica del botón No
 const btnNo = document.getElementById('btn-no');
 btnNo.addEventListener('mouseover', () => {
     const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
@@ -67,7 +69,7 @@ btnNo.addEventListener('mouseover', () => {
 
 document.getElementById('btn-si').onclick = () => {
     alert("¡SABÍA QUE DIRÍAS QUE SÍ! ❤️ Eres lo mejor que me ha pasado.");
-    // Aquí podrías añadir confeti o una redirección
 };
 
+// Arrancamos el quiz
 loadQuestion();

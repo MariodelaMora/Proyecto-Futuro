@@ -2,33 +2,31 @@
     <!-- Pantalla de Preguntas -->
     <div id="question-card" class="card shadow-lg p-4">
         <h2 id="question-text" class="mb-4"></h2>
-
         <div class="image-wrapper mb-4">
             <img id="question-image" src="" alt="Recuerdo" class="img-fluid rounded shadow">
         </div>
-
         <div id="options-container" class="d-grid gap-3">
             <!-- Los botones se generan con JS -->
         </div>
     </div>
 
-    <!-- Pantalla de Mensaje Intermedio (El "Te quiero porque...") -->
-    <div id="feedback-screen" class="d-none card shadow-lg p-4">
+    <!-- Pantalla de Mensaje Intermedio -->
+    <div id="feedback-screen" class="card shadow-lg p-4 d-none">
         <img id="feedback-image" src="" class="img-fluid rounded mb-3">
         <h3 id="feedback-message" class="italic-love"></h3>
         <button onclick="nextQuestion()" class="btn btn-heart mt-3">Siguiente recuerdo ❤️</button>
     </div>
 
-    <!-- Pantalla Final (La Propuesta) -->
-    <div id="final-screen" class="d-none card shadow-lg p-5">
+    <!-- Pantalla Final -->
+    <div id="final-screen" class="card shadow-lg p-5 d-none">
         <img src="/images/sanvi-loca.jpg" class="img-fluid rounded mb-4">
         <h1 class="display-4 text-danger">Entonces...</h1>
         <p class="lead">Aquel pavo de la resi que te caía tan mal... ¿te ha convencido ya para ser su novia?</p>
-
         <div class="d-flex justify-content-center gap-5 mt-4">
             <button id="btn-si" class="btn btn-success btn-lg px-5">¡SÍ! 🌹</button>
             <button id="btn-no" class="btn btn-secondary btn-lg px-5">No</button>
         </div>
     </div>
 </div>
+
 <script src="/routes/script.js"></script>

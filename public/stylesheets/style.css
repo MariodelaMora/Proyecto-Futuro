@@ -1,6 +1,6 @@
-.container { max-width: 600px; }
-.img-fluid { max-height: 350px; object-fit: cover; width: 100%; }
-.btn-heart { background-color: #ff4d6d; color: white; border-radius: 20px; transition: 0.3s; }
+.container { max-width: 600px; margin: auto; }
+.img-fluid { max-height: 350px; object-fit: cover; width: 100%; border-radius: 15px; }
+.btn-heart { background-color: #ff4d6d; color: white; border-radius: 20px; transition: 0.3s; border: none; padding: 10px 20px; }
 .btn-heart:hover { background-color: #ff758f; transform: scale(1.05); }
 
 .italic-love {
@@ -10,14 +10,18 @@
   margin-top: 20px;
 }
 
-/* Animación para el botón que huye */
-#btn-no {
-  transition: all 0.2s ease;
-  z-index: 999;
-}
+#btn-no { transition: all 0.2s ease; z-index: 999; }
 
 #question-card, #feedback-screen, #final-screen {
   border: none;
   border-radius: 25px;
   background: #fff0f3;
+  padding: 30px;
 }
+
+/* ESTO ES VITAL: Fuerza a que se escondan las pantallas */
+.d-none {
+  display: none !important;
+}
+
+.card { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
