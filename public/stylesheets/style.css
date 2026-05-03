@@ -1,32 +1,95 @@
-.container { max-width: 600px; margin: auto; }
-.img-fluid { max-height: 400px; object-fit: cover; width: 100%; border-radius: 15px; }
+/* Importar una fuente más bonita y moderna */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Dancing+Script:wght@700&display=swap');
 
-/* ESTO ES LO QUE ARREGLA TU ERROR: Esconde las pantallas que no tocan */
-.d-none {
-  display: none !important;
+body {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  min-height: 100vh;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  overflow-x: hidden;
 }
 
-.btn-heart {
-  background-color: #ff4d6d;
-  color: white;
-  border-radius: 20px;
-  border: none;
-  padding: 12px 24px;
-  font-weight: bold;
+.container {
+  width: 95%;
+  max-width: 500px;
+  padding: 20px;
 }
 
-.italic-love {
-  font-family: 'Georgia', serif;
-  font-style: italic;
-  color: #c9184a;
-  padding: 15px;
-}
-
-#btn-no { transition: all 0.2s ease; z-index: 1000; }
-
+/* Tarjetas con efecto cristal (Glassmorphism) */
 .card {
-  border: none;
-  border-radius: 25px;
-  background: #fff0f3;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  border: none !important;
+  border-radius: 30px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2) !important;
+  padding: 25px !important;
+  animation: fadeIn 0.6s ease-out;
 }
+
+/* Animación de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilo de las imágenes */
+.image-wrapper img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Botones estilo "Gominola" */
+.btn-outline-danger {
+  border: 2px solid #ff4d6d !important;
+  color: #ff4d6d !important;
+  border-radius: 15px !important;
+  font-weight: 700 !important;
+  padding: 12px !important;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+  background: white !important;
+}
+
+.btn-outline-danger:hover {
+  background: #ff4d6d !important;
+  color: white !important;
+  transform: scale(1.05);
+}
+
+/* Botón Corazón (Siguiente) */
+.btn-heart {
+  background: linear-gradient(45deg, #ff4d6d, #ff758f);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+  transition: 0.3s;
+}
+
+.btn-heart:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255, 77, 109, 0.6);
+}
+
+/* Texto especial "Te quiero porque..." */
+.italic-love {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #c9184a;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+/* Pantallas ocultas */
+.d-none { display: none !important; }
+
+/* Botones final */
+#btn-si { background: #43a047; border: none; border-radius: 15px; }
+#btn-no { border-radius: 15px; }

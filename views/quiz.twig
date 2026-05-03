@@ -1,45 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Quiz para Ella</title>
-    <!-- Enlazamos el CSS usando la ruta que Express entiende para la carpeta public -->
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <!-- Bootstrap (opcional, pero ayuda al diseño) -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para mi persona favorita ❤️</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
 
-<div id="quiz-container" class="container mt-5 text-center">
-    <!-- 1. Pantalla de Preguntas -->
-    <div id="question-card" class="card shadow-lg p-4">
-        <h2 id="question-text" class="mb-4"></h2>
+<div id="quiz-container" class="container">
+
+    <!-- 1. Preguntas -->
+    <div id="question-card" class="card text-center">
+        <h3 id="question-text" class="fw-bold mb-4" style="color: #590d22;"></h3>
         <div class="image-wrapper mb-4">
-            <img id="question-image" src="" alt="Recuerdo" class="img-fluid rounded shadow">
+            <img id="question-image" src="" class="img-fluid">
         </div>
         <div id="options-container" class="d-grid gap-3"></div>
     </div>
 
-    <!-- 2. Pantalla de Mensaje (Te quiero porque...) -->
-    <div id="feedback-screen" class="card shadow-lg p-4 d-none">
-        <img id="feedback-image" src="" class="img-fluid rounded mb-3">
-        <h3 id="feedback-message" class="italic-love"></h3>
-        <button onclick="nextQuestion()" class="btn btn-heart mt-3">Siguiente recuerdo ❤️</button>
+    <!-- 2. Feedback -->
+    <div id="feedback-screen" class="card text-center d-none">
+        <div class="image-wrapper mb-3">
+            <img id="feedback-image" src="" class="img-fluid">
+        </div>
+        <p id="feedback-message" class="italic-love"></p>
+        <button onclick="nextQuestion()" class="btn btn-heart">Siguiente recuerdo ❤️</button>
     </div>
 
-    <!-- 3. Pantalla Final -->
-    <div id="final-screen" class="card shadow-lg p-5 d-none">
-        <img src="/images/sanvi-loca.jpg" class="img-fluid rounded mb-4">
-        <h1 class="display-4 text-danger">Entonces...</h1>
-        <p class="lead">Aquel pavo de la resi que te caía tan mal... ¿te ha convencido ya para ser su novia?</p>
-        <div class="d-flex justify-content-center gap-5 mt-4">
-            <button id="btn-si" class="btn btn-success btn-lg px-5">¡SÍ! 🌹</button>
-            <button id="btn-no" class="btn btn-secondary btn-lg px-5">No</button>
+    <!-- 3. Final -->
+    <div id="final-screen" class="card text-center d-none">
+        <div class="image-wrapper mb-4">
+            <img src="/images/sanvi-loca.jpg" class="img-fluid">
+        </div>
+        <h2 class="fw-bold" style="color: #ff4d6d;">Entonces...</h2>
+        <p class="lead mb-4">¿Te ha convencido ya este pavo para ser su novia?</p>
+        <div class="d-flex justify-content-center gap-3">
+            <button id="btn-si" class="btn btn-success btn-lg px-4 fw-bold">SÍ! 🌹</button>
+            <button id="btn-no" class="btn btn-light btn-lg px-4">No</button>
         </div>
     </div>
+
 </div>
 
-<!-- RUTA CORRECTA según tu captura: public/javascripts/script.js -->
 <script src="/javascripts/script.js"></script>
-
 </body>
 </html>
