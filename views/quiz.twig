@@ -1,74 +1,34 @@
-{% extends 'layout.twig' %}
+<div id="quiz-container" class="container mt-5 text-center">
+    <!-- Pantalla de Preguntas -->
+    <div id="question-card" class="card shadow-lg p-4">
+        <h2 id="question-text" class="mb-4"></h2>
 
-{% block body %}
-    <div id="quiz-app" class="flex flex-col items-center justify-start min-h-[95vh] pt-10 px-4">
-        <div class="w-full max-w-sm bg-white/40 backdrop-blur-2xl rounded-[3rem] p-8 shadow-2xl border border-white/50 relative overflow-hidden animate__animated animate__zoomIn">
+        <div class="image-wrapper mb-4">
+            <img id="question-image" src="" alt="Recuerdo" class="img-fluid rounded shadow">
+        </div>
 
-            <!-- Barra de progreso superior -->
-            <div class="flex justify-between items-center mb-6">
-                <div id="progress-dots" class="flex gap-2"></div>
-                <span id="perc" class="text-[10px] font-bold text-indigo-600 bg-indigo-100 px-2 py-1 rounded-full">0%</span>
-            </div>
-
-            <div id="quiz-step" class="transition-all duration-500">
-                <h2 id="q-text" class="text-2xl font-bold text-gray-900 mb-8 leading-tight"></h2>
-                <div id="options" class="space-y-4"></div>
-            </div>
-
-            <!-- Pantalla de Acierto (Overlay) -->
-            <div id="reward-overlay" class="hidden absolute inset-0 bg-white/95 z-20 flex flex-col p-6 animate__animated animate__fadeIn">
-                <img id="r-img" src="" class="w-full h-64 object-cover rounded-[2rem] shadow-xl mb-6">
-                <div class="flex-1 overflow-y-auto italic text-gray-700 text-center font-medium px-2 leading-relaxed" id="r-msg"></div>
-                <button onclick="nextStep()" class="mt-6 w-full bg-gray-900 text-white py-5 rounded-2xl font-bold active:scale-95 transition-transform">
-                    Siguiente →
-                </button>
-            </div>
+        <div id="options-container" class="d-grid gap-3">
+            <!-- Los botones se generan con JS -->
         </div>
     </div>
 
-    <script>
-        const data = [
-            { q: "¿Cuándo es el cumple de Mario?", opts: ["26 Marzo", "27 Marzo", "27 Abril", "17 Marzo"], ans: 1, img: "/images/cumple-tarta.jpg", msg: "Me hiciste sentir súper especial en mi día; es algo que nunca voy a olvidar. ❤️" },
-            { q: "¿Nuestro primer viaje de 'locura'?", opts: ["Oviedo", "Gijón", "San Vicente", "Santander"], ans: 2, img: "/images/sanvi-loca.jpg", msg: "Ese viaje me enseñó que contigo hasta perderse es un planazo." },
-            { q: "¿Qué tiene de especial hoy, 28 de Junio?", opts: ["Un día normal", "Hace 1 año que nos conocimos", "Mario tiene una pregunta", "B y C son correctas"], ans: 3, img: "/images/fiesta.jpg", msg: "Quién nos diría que ese pavo que te caía mal en la resi hoy no puede vivir sin ti... Por eso, esto tiene que dejar de ser un juego." }
-        ];
+    <!-- Pantalla de Mensaje Intermedio (El "Te quiero porque...") -->
+    <div id="feedback-screen" class="d-none card shadow-lg p-4">
+        <img id="feedback-image" src="" class="img-fluid rounded mb-3">
+        <h3 id="feedback-message" class="italic-love"></h3>
+        <button onclick="nextQuestion()" class="btn btn-heart mt-3">Siguiente recuerdo ❤️</button>
+    </div>
 
-        let cur = 0;
+    <!-- Pantalla Final (La Propuesta) -->
+    <div id="final-screen" class="d-none card shadow-lg p-5">
+        <img src="/images/sanvi-loca.jpg" class="img-fluid rounded mb-4">
+        <h1 class="display-4 text-danger">Entonces...</h1>
+        <p class="lead">Aquel pavo de la resi que te caía tan mal... ¿te ha convencido ya para ser su novia?</p>
 
-        function render() {
-            const s = data[cur];
-            document.getElementById('q-text').innerText = s.q;
-            document.getElementById('perc').innerText = Math.round((cur/data.length)*100) + "%";
-
-            const opts = document.getElementById('options');
-            opts.innerHTML = '';
-            s.opts.forEach((o, i) => {
-                const b = document.createElement('button');
-                b.className = "w-full text-left p-5 rounded-2xl bg-white/60 border border-white shadow-sm font-semibold text-gray-800 active:bg-indigo-50 transition-all animate__animated animate__fadeInUp";
-                b.style.animationDelay = (i * 0.1) + "s";
-                b.innerText = o;
-                b.onclick = () => i === s.ans ? showR() : b.classList.add('animate__shakeX', 'bg-red-50');
-                opts.appendChild(b);
-            });
-        }
-
-        function showR() {
-            if(cur === data.length - 1) confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            document.getElementById('r-img').src = data[cur].img;
-            document.getElementById('r-msg').innerText = `"${data[cur].msg}"`;
-            document.getElementById('reward-overlay').classList.remove('hidden');
-        }
-
-        function nextStep() {
-            cur++;
-            if(cur < data.length) {
-                document.getElementById('reward-overlay').classList.add('hidden');
-                render();
-            } else {
-                window.location.href = "/la-pregunta";
-            }
-        }
-
-        render();
-    </script>
-{% endblock %}
+        <div class="d-flex justify-content-center gap-5 mt-4">
+            <button id="btn-si" class="btn btn-success btn-lg px-5">¡SÍ! 🌹</button>
+            <button id="btn-no" class="btn btn-secondary btn-lg px-5">No</button>
+        </div>
+    </div>
+</div>
+<script src="/routes/script.js"></script>

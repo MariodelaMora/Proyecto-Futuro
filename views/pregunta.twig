@@ -1,26 +1,26 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="relative min-h-[90vh] flex items-center justify-center p-6">
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-30 z-0">
+    <div class="relative min-h-[95vh] flex items-center justify-center p-6 overflow-hidden">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-20 z-0">
             <source src="/videos/mimos.mp4" type="video/mp4">
         </video>
 
         <div class="relative z-10 w-full max-w-sm text-center animate__animated animate__fadeInUp">
             <div class="bg-white/10 backdrop-blur-md p-10 rounded-[3rem] border border-white/20 shadow-2xl">
-                <h2 class="text-indigo-900 font-black tracking-[0.2em] text-xs mb-6 uppercase">Un año después...</h2>
                 <h1 class="text-4xl font-bold text-gray-900 mb-12 leading-tight">¿Quieres ser mi novia oficialmente?</h1>
 
-                <div class="space-y-6">
+                <div class="flex flex-col gap-4">
                     <form action="/respuesta" method="POST">
                         <input type="hidden" name="decision" value="si">
-                        <button class="w-full bg-green-500 text-white font-black py-6 rounded-3xl shadow-xl text-xl animate__animated animate__heartBeat animate__infinite">
+                        <button class="w-full bg-green-500 text-white font-black py-6 rounded-3xl shadow-xl text-xl transition-transform active:scale-95">
                             SÍ, QUIERO ❤️
                         </button>
                     </form>
 
-                    <button id="no-btn" class="text-gray-500 font-bold text-sm opacity-50 py-2">
-                        No (Error de sistema)
+                    <!-- ESTE ES EL BOTÓN QUE SE MUEVE -->
+                    <button id="no-btn" class="bg-red-400 text-white font-bold py-3 px-8 rounded-2xl transition-all duration-100 ease-out">
+                        No
                     </button>
                 </div>
             </div>
@@ -28,12 +28,32 @@
     </div>
 
     <script>
-        const no = document.getElementById('no-btn');
-        no.addEventListener('touchstart', (e) => {
+        const btnNo = document.getElementById('no-btn');
+
+        const moverBoton = () => {
+            // Calculamos posiciones aleatorias pero que el botón no se salga de la pantalla
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+
+            btnNo.style.position = 'fixed';
+            btnNo.style.left = x + 'px';
+            btnNo.style.top = y + 'px';
+            btnNo.style.zIndex = '9999';
+        };
+
+        // Para PC (Ratón)
+        btnNo.addEventListener('mouseover', moverBoton);
+
+        // Para Móvil (Dedo)
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Evita que se haga clic accidental
+            moverBoton();
+        });
+
+        // Por si acaso logra hacer click (ej. cargando la página), lo movemos igual
+        btnNo.addEventListener('click', (e) => {
             e.preventDefault();
-            no.style.position = 'absolute';
-            no.style.left = Math.random() * 80 + '%';
-            no.style.top = Math.random() * 80 + '%';
+            moverBoton();
         });
     </script>
 {% endblock %}
