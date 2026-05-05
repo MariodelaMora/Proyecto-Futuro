@@ -70,10 +70,32 @@ function nextQuestion() {
     if (currentStep < quizData.length) {
         loadQuestion();
     } else {
+        // En lugar de ir al final, vamos a la transición
         document.getElementById('feedback-screen').classList.add('d-none');
-        document.getElementById('final-screen').classList.remove('d-none');
+        document.getElementById('transition-screen').classList.remove('d-none');
     }
 }
+
+// Nueva función para cuando ella pulsa "Ya los tengo cerrados"
+function showFinalProposal() {
+    // Aquí es cuando tú ya deberías estar ahí o a punto de aparecer
+    document.getElementById('transition-screen').classList.add('d-none');
+    document.getElementById('final-screen').classList.remove('d-none');
+
+    // Si quieres que el botón "SÍ" sea más espectacular:
+    lanzarConfeti();
+}
+
+// Mejora del botón SÍ para que sea más emotivo
+document.getElementById('btn-si').onclick = () => {
+    // Puedes esconder los botones y dejar solo un mensaje final
+    document.getElementById('final-screen').innerHTML = `
+        <h1 class="italic-love" style="font-size: 3rem;">¡SÍ! ❤️</h1>
+        <p class="lead">Prepárate, porque pienso hacerte la persona más feliz del mundo.</p>
+        <img src="/images/sanvi-loca.jpg" class="img-fluid rounded-circle mt-3" style="width: 200px; height: 200px; object-fit: cover;">
+    `;
+    // Aquí podrías añadir una función de confeti real si incluyes la librería
+};
 
 // Botón que huye
 const btnNo = document.getElementById('btn-no');

@@ -28,6 +28,16 @@
         <button onclick="nextQuestion()" class="btn btn-danger rounded-pill px-4">Siguiente recuerdo ❤️</button>
     </div>
 
+    <div id="transition-screen" class="card text-center d-none transition-glow">
+        <h2 class="italic-love" style="font-size: 2.5rem;">Antes de seguir...</h2>
+        <div class="py-4">
+            <p class="lead fw-bold">Cierra los ojos y no los abras hasta que te lo diga.</p>
+            <div class="heart-pulse">❤️</div>
+        </div>
+        <p class="text-muted small">Haz clic aquí abajo solo cuando estés lista y tengas los ojos cerrados.</p>
+        <button onclick="showFinalProposal()" class="btn btn-heart">Ya los tengo cerrados 🙈</button>
+    </div>
+
     <!-- 3. Gran Final -->
     <div id="final-screen" class="card text-center d-none">
         <div class="image-wrapper mb-4">
