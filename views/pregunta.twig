@@ -1,59 +1,76 @@
 {% extends 'layout.twig' %}
 
 {% block body %}
-    <div class="relative min-h-[95vh] flex items-center justify-center p-6 overflow-hidden">
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-20 z-0">
+    <main class="relative min-h-screen flex items-center justify-center p-5 overflow-hidden">
+        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover opacity-25 z-0">
             <source src="/videos/mimos.mp4" type="video/mp4">
         </video>
+        <div class="absolute inset-0 bg-white/35 backdrop-blur-[2px]"></div>
 
-        <div class="relative z-10 w-full max-w-sm text-center animate__animated animate__fadeInUp">
-            <div class="bg-white/10 backdrop-blur-md p-10 rounded-[3rem] border border-white/20 shadow-2xl">
-                <h1 class="text-4xl font-bold text-gray-900 mb-12 leading-tight">¿Quieres ser mi novia oficialmente?</h1>
+        <section class="relative z-10 w-full max-w-5xl grid lg:grid-cols-[0.9fr_1fr] gap-8 items-center">
+            <div class="relative min-h-[420px] hidden sm:block">
+                <img src="/images/san-valentin.jpg" class="absolute left-8 top-4 h-56 w-44 object-cover rounded-2xl border-8 border-white shadow-2xl rotate-[-8deg] animate__animated animate__fadeInLeft" alt="">
+                <img src="/images/san-vicente-beso.jpg" class="absolute right-8 top-24 h-64 w-48 object-cover rounded-2xl border-8 border-white shadow-2xl rotate-[7deg] animate__animated animate__fadeInRight" alt="">
+                <img src="/images/atardecer-vacas.jpg" class="absolute left-1/2 -translate-x-1/2 bottom-4 h-52 w-56 object-cover rounded-2xl border-8 border-white shadow-2xl rotate-[-2deg] animate__animated animate__fadeInUp" alt="">
+            </div>
 
-                <div class="flex flex-col gap-4">
+            <div class="bg-white/75 backdrop-blur-2xl p-7 md:p-10 rounded-[2rem] border border-white shadow-2xl text-center animate__animated animate__zoomIn">
+                <p class="uppercase tracking-[0.25em] text-pink-600 text-xs font-black mb-5">pregunta final</p>
+                <h1 class="text-4xl md:text-6xl font-black text-gray-950 leading-none mb-5">¿Quieres ser mi novia oficialmente?</h1>
+                <p class="text-gray-700 font-bold leading-relaxed mb-8">
+                    Me gustas en los planes grandes, en los momentos tontos y en los días normales. Quiero que esto deje de ser “a ver qué somos” y empiece a ser nosotros.
+                </p>
+
+                <div class="grid grid-cols-3 gap-2 mb-8 text-sm font-black text-pink-700">
+                    <span class="bg-pink-50 rounded-2xl py-3">citas</span>
+                    <span class="bg-pink-50 rounded-2xl py-3">risas</span>
+                    <span class="bg-pink-50 rounded-2xl py-3">futuro</span>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
                     <form action="/respuesta" method="POST">
                         <input type="hidden" name="decision" value="si">
-                        <button class="w-full bg-green-500 text-white font-black py-6 rounded-3xl shadow-xl text-xl transition-transform active:scale-95">
-                            SÍ, QUIERO ❤️
+                        <button class="bg-green-500 hover:bg-green-600 text-white font-black py-5 px-8 rounded-2xl shadow-xl text-xl transition-transform active:scale-95">
+                            Sí, quiero ❤️
                         </button>
                     </form>
 
-                    <!-- ESTE ES EL BOTÓN QUE SE MUEVE -->
-                    <button id="no-btn" class="bg-red-400 text-white font-bold py-3 px-8 rounded-2xl transition-all duration-100 ease-out">
-                        No
+                    <button id="no-btn" class="bg-white text-pink-700 font-black py-5 px-8 rounded-2xl shadow-lg border border-pink-100 transition-all duration-100 ease-out">
+                        Aún no
                     </button>
                 </div>
+                <p id="no-copy" class="min-h-6 mt-5 text-pink-700 font-black"></p>
             </div>
-        </div>
-    </div>
+        </section>
+    </main>
 
     <script>
         const btnNo = document.getElementById('no-btn');
+        const noCopy = document.getElementById('no-copy');
+        const frases = [
+            'Ese botón está en mantenimiento.',
+            'La respuesta bonita está al lado.',
+            'No parece una opción muy estable.',
+            'El destino acaba de mover ese botón.'
+        ];
+        let intentos = 0;
 
-        const moverBoton = () => {
-            // Calculamos posiciones aleatorias pero que el botón no se salga de la pantalla
-            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - 20);
-            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - 20);
+        const moverBoton = (event) => {
+            event.preventDefault();
+            intentos++;
+            const margen = 18;
+            const x = Math.random() * (window.innerWidth - btnNo.offsetWidth - margen * 2) + margen;
+            const y = Math.random() * (window.innerHeight - btnNo.offsetHeight - margen * 2) + margen;
 
             btnNo.style.position = 'fixed';
             btnNo.style.left = x + 'px';
             btnNo.style.top = y + 'px';
             btnNo.style.zIndex = '9999';
+            noCopy.innerText = frases[(intentos - 1) % frases.length];
         };
 
-        // Para PC (Ratón)
         btnNo.addEventListener('mouseover', moverBoton);
-
-        // Para Móvil (Dedo)
-        btnNo.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Evita que se haga clic accidental
-            moverBoton();
-        });
-
-        // Por si acaso logra hacer click (ej. cargando la página), lo movemos igual
-        btnNo.addEventListener('click', (e) => {
-            e.preventDefault();
-            moverBoton();
-        });
+        btnNo.addEventListener('touchstart', moverBoton, { passive: false });
+        btnNo.addEventListener('click', moverBoton);
     </script>
 {% endblock %}

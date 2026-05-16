@@ -4,22 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>¿Cuánto me conoces? ❤️</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
 <div id="quiz-container" class="container">
 
-    <!-- 1. Pantalla de Preguntas -->
+    <div class="quiz-shell-header">
+        <span id="question-counter">1 / 8</span>
+        <span>Mario Challenge</span>
+    </div>
+    <div id="progress-dots" class="progress-dots" aria-hidden="true"></div>
+
     <div id="question-card" class="card text-center">
         <div id="timer" class="timer-bar"></div>
+        <div class="memory-chip">recuerdo bloqueado</div>
         <h4 id="question-text" class="fw-bold my-4" style="color: #590d22;"></h4>
-        <!-- La foto aquí solo aparece si quieres, pero la sorpresa real va en el feedback -->
         <div id="options-container" class="d-grid gap-2"></div>
     </div>
 
-    <!-- 2. Pantalla de Acierto (Aquí aparece la FOTO + TEXTO) -->
     <div id="feedback-screen" class="card text-center d-none">
         <div class="image-wrapper mb-3">
             <img id="feedback-image" src="" class="img-fluid shadow">
@@ -38,21 +44,39 @@
         <button onclick="showFinalProposal()" class="btn btn-heart">Ya los tengo cerrados 🙈</button>
     </div>
 
-    <!-- 3. Gran Final -->
     <div id="final-screen" class="card text-center d-none">
-        <div class="image-wrapper mb-4">
-            <img src="/images/sanvi-loca.jpg" class="img-fluid">
-        </div>
-        <h2 class="fw-bold" style="color: #ff4d6d;">¡Lo has clavado!</h2>
-        <p class="lead mb-4">¿Te he convencido ya para ser mi novia?</p>
-        <div class="d-flex justify-content-center gap-3">
-            <button id="btn-si" class="btn btn-success btn-lg px-4 fw-bold shadow">¡SÍ! 🌹</button>
-            <button id="btn-no" class="btn btn-light btn-lg px-4 shadow">No</button>
+        <div class="proposal-scene">
+            <div class="photo-constellation" aria-hidden="true">
+                <img src="/images/san-valentin.jpg" class="photo-card photo-one" alt="">
+                <img src="/images/san-vicente-beso.jpg" class="photo-card photo-two" alt="">
+                <img src="/images/atardecer-vacas.jpg" class="photo-card photo-three" alt="">
+                <img src="/images/calma.jpg" class="photo-card photo-four" alt="">
+                <img src="/images/flores-coche.jpg" class="photo-card photo-five" alt="">
+                <img src="/images/helado.jpg" class="photo-card photo-six" alt="">
+            </div>
+            <div class="proposal-content">
+                <span class="proposal-kicker">último desbloqueo</span>
+                <h1>¿Quieres ser mi novia oficialmente?</h1>
+                <p>
+                    No por una foto concreta, sino por todas las risas, los planes improvisados,
+                    los viajes, los abrazos y las ganas que tengo de seguir sumando contigo.
+                </p>
+                <div class="promise-grid">
+                    <span>más planes</span>
+                    <span>más risas</span>
+                    <span>más nosotros</span>
+                </div>
+                <div class="proposal-actions">
+                    <button id="btn-si" class="btn btn-yes btn-lg px-4 fw-bold shadow">Sí, quiero ❤️</button>
+                    <button id="btn-no" class="btn btn-no btn-lg px-4 shadow">Aún no</button>
+                </div>
+                <p id="no-message" class="no-message" aria-live="polite"></p>
+            </div>
         </div>
     </div>
 
 </div>
 
-<script src="/javascripts/script.js"></script>
+<script src="/javascripts/script.js?v=4"></script>
 </body>
 </html>
